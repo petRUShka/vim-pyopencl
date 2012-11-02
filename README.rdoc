@@ -22,6 +22,32 @@ and use
 
 for OpenCL code included in your Python file.
 
+For example
+
+  cl.Program(ctx, """
+      __kernel void sum(__global const float *a,
+      __global const float *b, __global float *c)
+      {
+        int gid = get_global_id(0);
+        c[gid] = a[gid] + b[gid];
+      }
+      """).build()
+
+will not be highlighted. But
+
+  cl.Program(ctx, """//CL//
+      __kernel void sum(__global const float *a,
+      __global const float *b, __global float *c)
+      {
+        int gid = get_global_id(0);
+        c[gid] = a[gid] + b[gid];
+      }
+      """).build()
+
+will be highlighted.
+
+
+
 You may also include a line
 
   # vim: filetype=pyopencl.python
@@ -36,4 +62,4 @@ Vim-opencl is a vim plugin for support OpenCL (Open Computing Language) syntax f
 
 Originally, this was a mirror of https://github.com/inducer/pyopencl/blob/master/contrib/pyopencl.vim
 
-That script provides syntax highlight for PyOpenCL syntax files and included to pyopenclo package.
+That script provides syntax highlight for PyOpenCL syntax files and included to pyopencl package: https://github.com/inducer/pyopencl .
